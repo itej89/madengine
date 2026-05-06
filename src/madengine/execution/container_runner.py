@@ -639,9 +639,7 @@ class ContainerRunner:
                     )
 
         elif gpu_vendor.find("NVIDIA") != -1:
-            gpu_str = ""
-            for idx in range(0, int(requested_gpus)):
-                gpu_str += str(docker_gpus[idx]) + ","
+            gpu_str = ",".join(str(docker_gpus[idx]) for idx in range(0, int(requested_gpus)))
             gpu_arg += f"--gpus '\"device={gpu_str}\"' "
         else:
             raise RuntimeError("Unable to determine gpu vendor.")
